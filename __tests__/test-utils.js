@@ -21,17 +21,39 @@ export const createTestUser = async () => {
 };
 
 
-export const getTestuser = async()=>{
+export const getTestuser = async () => {
     return prismaClient.user.findUnique({
         where: {
             username: 'test'
         }
-    })
+    });
 };
-export const removeAllTestContacts = async()=>{
+export const removeAllTestContacts = async () => {
     await prismaClient.contact.deleteMany({
         where: {
             username: 'test'
         }
+    });
+};
+
+
+export const createTestContact = async () => {
+    await prismaClient.contact.create({
+        data: {
+            username: "test",
+            first_name: "test",
+            last_name: "test",
+            email: "test@aufal.com",
+            phone: "0808912345"
+        }
     })
 };
+
+
+export const getTestContact  = async()=>{
+    return prismaClient.contact.findFirst({
+        where: {
+            username: "test"
+        }
+    })
+}
