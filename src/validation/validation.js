@@ -1,4 +1,7 @@
+import { CustomValidationError } from "../error/custom-validation-error.js";
 import { ResponseError } from "../error/response-error.js";
+import pkg from "joi";
+const { ValidationError } = pkg;
 
 export const validate = (schema, request) => {
     const result = schema.validate(request, {
@@ -9,7 +12,7 @@ export const validate = (schema, request) => {
     });
 
     if (result.error) {
-        throw new ResponseError(400, result.error.message);
+        throw new CustomValidationError(result.error)
     } else {
         return result.value;
     }
